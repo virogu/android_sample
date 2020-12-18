@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="negative_bg_color">#7d7d7d</color>
+    <color name="positive_bg_color">#2084c2</color>
+    <color name="permission_dialog_bg">#FFFFFF</color>
+    <color name="permission_icon_light">#8AB6F5</color>
+</resources>

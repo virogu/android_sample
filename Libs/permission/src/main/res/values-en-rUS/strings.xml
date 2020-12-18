@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="denied_permission_tips">You have denied the required permissions</string>
+    <string name="chat_permission_tips">You need to authorize the following permissions to use the chat function</string>
+    <string name="permission_tips">You need to authorize the following permissions to continue</string>
+    <string name="forward_to_setting_tips">You need to manually enable the following permissions in the settings</string>
+    <string name="permission_positive_text">Understood</string>
+    <string name="refuse">Cancel</string>
+    <string name="open">OK</string>
+</resources>

@@ -1,0 +1,5 @@
+include ':cardviewpager'
+include ':customview'
+include ':permission'
+include ':app'
+rootProject.name = "Libs"
