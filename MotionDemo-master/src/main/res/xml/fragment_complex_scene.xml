@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="5000"
+        motion:motionInterpolator="easeInOut"
+        motion:pathMotionArc="startVertical"
+        motion:staggered="0.1">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                motion:framePosition="90"
+                motion:motionTarget="@+id/peppaImage" />
+            <KeyAttribute
+                android:scaleX="0"
+                android:scaleY="0"
+                motion:framePosition="0"
+                motion:motionTarget="@+id/peppaImage" />
+            <KeyPosition
+                motion:framePosition="15"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/peppaImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.215"
+                motion:percentY="0.658" />
+            <KeyPosition
+                motion:framePosition="30"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/peppaImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="-0.063"
+                motion:percentY="0.446" />
+            <KeyPosition
+                motion:framePosition="45"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/peppaImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.496"
+                motion:percentY="0.05" />
+            <KeyPosition
+                motion:framePosition="60"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/peppaImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="1.071"
+                motion:percentY="0.426" />
+            <KeyPosition
+                motion:framePosition="75"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/peppaImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.493"
+                motion:percentY="0.727" />
+            <KeyPosition
+                motion:framePosition="90"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/peppaImage"
+                motion:pathMotionArc="none"
+                motion:percentX="0.495"
+                motion:percentY="0.871" />
+        </KeyFrameSet>
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                motion:framePosition="90"
+                motion:motionTarget="@+id/georgeImage" />
+            <KeyAttribute
+                android:scaleX="0"
+                android:scaleY="0"
+                motion:framePosition="0"
+                motion:motionTarget="@+id/georgeImage" />
+            <KeyPosition
+                motion:framePosition="15"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/georgeImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.225"
+                motion:percentY="0.658" />
+            <KeyPosition
+                motion:framePosition="30"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/georgeImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="-0.063"
+                motion:percentY="0.461" />
+            <KeyPosition
+                motion:framePosition="45"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/georgeImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.486"
+                motion:percentY="0.05" />
+            <KeyPosition
+                motion:framePosition="60"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/georgeImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="1.071"
+                motion:percentY="0.426" />
+            <KeyPosition
+                motion:framePosition="75"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/georgeImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.486"
+                motion:percentY="0.727" />
+            <KeyPosition
+                motion:framePosition="90"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/georgeImage"
+                motion:pathMotionArc="none"
+                motion:percentX="0.495"
+                motion:percentY="0.871" />
+        </KeyFrameSet>
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                motion:framePosition="90"
+                motion:motionTarget="@+id/mummyImage" />
+            <KeyAttribute
+                android:scaleX="0"
+                android:scaleY="0"
+                motion:framePosition="0"
+                motion:motionTarget="@+id/mummyImage" />
+            <KeyPosition
+                motion:framePosition="15"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/mummyImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.225"
+                motion:percentY="0.658" />
+            <KeyPosition
+                motion:framePosition="30"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/mummyImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="-0.063"
+                motion:percentY="0.461" />
+            <KeyPosition
+                motion:framePosition="45"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/mummyImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.486"
+                motion:percentY="0.05" />
+            <KeyPosition
+                motion:framePosition="60"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/mummyImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="1.071"
+                motion:percentY="0.426" />
+            <KeyPosition
+                motion:framePosition="75"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/mummyImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.486"
+                motion:percentY="0.727" />
+            <KeyPosition
+                motion:framePosition="90"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/mummyImage"
+                motion:pathMotionArc="none"
+                motion:percentX="0.495"
+                motion:percentY="0.871" />
+        </KeyFrameSet>
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:scaleX="1"
+                android:scaleY="1"
+                motion:framePosition="90"
+                motion:motionTarget="@+id/daddyImage" />
+            <KeyAttribute
+                android:scaleX="0"
+                android:scaleY="0"
+                motion:framePosition="0"
+                motion:motionTarget="@+id/daddyImage" />
+            <KeyPosition
+                motion:framePosition="15"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/daddyImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.225"
+                motion:percentY="0.658" />
+            <KeyPosition
+                motion:framePosition="30"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/daddyImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="-0.063"
+                motion:percentY="0.461" />
+            <KeyPosition
+                motion:framePosition="45"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/daddyImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.486"
+                motion:percentY="0.05" />
+            <KeyPosition
+                motion:framePosition="60"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/daddyImage"
+                motion:pathMotionArc="startVertical"
+                motion:percentX="1.071"
+                motion:percentY="0.426" />
+            <KeyPosition
+                motion:framePosition="75"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/daddyImage"
+                motion:pathMotionArc="startHorizontal"
+                motion:percentX="0.486"
+                motion:percentY="0.727" />
+            <KeyPosition
+                motion:framePosition="90"
+                motion:keyPositionType="parentRelative"
+                motion:motionTarget="@+id/daddyImage"
+                motion:pathMotionArc="none"
+                motion:percentX="0.495"
+                motion:percentY="0.871" />
+        </KeyFrameSet>
+        <OnClick />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/peppaImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.974" />
+        <Constraint
+            android:id="@+id/georgeImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.321"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.974" />
+        <Constraint
+            android:id="@+id/mummyImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.62"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.974" />
+        <Constraint
+            android:id="@+id/daddyImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.912" />
+    </ConstraintSet>
+</MotionScene>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:autoTransition="jumpToStart"
+        motion:constraintSetEnd="@+id/sine"
+        motion:constraintSetStart="@id/start"
+        motion:duration="3000"
+        motion:motionInterpolator="easeInOut">
+        <KeyFrameSet>
+            <KeyCycle
+                android:translationX="150dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/georgeCycle"
+                motion:waveOffset="0dp"
+                motion:wavePeriod="1.5" />
+
+        </KeyFrameSet>
+        <OnClick motion:targetId="@id/viewSine" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
+
+    <ConstraintSet android:id="@+id/sine">
+        <Constraint
+            android:id="@+id/georgeCycle"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.973" />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/bounce">
+        <Constraint
+            android:id="@+id/georgeCycle"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.973" />
+    </ConstraintSet>
+    <Transition
+        motion:autoTransition="jumpToStart"
+        motion:constraintSetEnd="@+id/bounce"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="3000">
+        <KeyFrameSet>
+            <KeyCycle
+                android:translationX="150dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/georgeCycle"
+                motion:waveOffset="0dp"
+                motion:wavePeriod="1"
+                motion:waveShape="bounce" />
+        </KeyFrameSet>
+        <OnClick motion:targetId="@id/viewBounce" />
+
+    </Transition>
+</MotionScene>

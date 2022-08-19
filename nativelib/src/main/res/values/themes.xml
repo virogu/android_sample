@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="Theme.MySamples.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MySamples.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MySamples.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

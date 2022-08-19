@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SpinnerDatePicker">
+        <item name="android:editTextStyle">@style/PickerEditText</item>
+    </style>
+
+    <style name="PickerEditText">
+        <item name="android:textSize">@dimen/spinner_date_picker_text_size</item>
+        <item name="android:padding">@dimen/spinner_date_picker_text_padding</item>
+    </style>
+
+</resources>

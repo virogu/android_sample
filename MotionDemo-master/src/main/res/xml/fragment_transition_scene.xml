@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/peppaView"
+        motion:constraintSetStart="@id/start"
+        motion:duration="500">
+        <KeyFrameSet></KeyFrameSet>
+        <OnClick motion:targetId="@id/peppaImageView" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
+
+    <ConstraintSet android:id="@+id/peppaView">
+        <Constraint
+            android:id="@+id/peppaImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.499" />
+        <Constraint
+            android:id="@+id/georgeImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.866"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.25" />
+        <Constraint
+            android:id="@+id/mummyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.146"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.604" />
+        <Constraint
+            android:id="@+id/daddyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.863"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.604" />
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/georgeView">
+        <Constraint
+            android:id="@+id/georgeImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.499" />
+        <Constraint
+            android:id="@+id/peppaImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.146"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.25" />
+        <Constraint
+            android:id="@+id/mummyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.146"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.604" />
+        <Constraint
+            android:id="@+id/daddyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.863"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.604" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetEnd="@+id/georgeView"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="500">
+        <OnClick motion:targetId="@id/georgeImageView" />
+    </Transition>
+    <ConstraintSet android:id="@+id/mummyView">
+        <Constraint
+            android:id="@+id/mummyImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.593"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.498" />
+        <Constraint
+            android:id="@+id/peppaImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.146"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.25" />
+        <Constraint
+            android:id="@+id/georgeImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.866"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.25" />
+        <Constraint
+            android:id="@+id/daddyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.863"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.604" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetEnd="@+id/mummyView"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="500">
+        <OnClick motion:targetId="@id/mummyImageView" />
+    </Transition>
+    <ConstraintSet android:id="@+id/daddyView">
+        <Constraint
+            android:id="@+id/daddyImageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.5"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.5" />
+        <Constraint
+            android:id="@+id/peppaImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.146"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.25" />
+        <Constraint
+            android:id="@+id/georgeImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.866"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.25" />
+        <Constraint
+            android:id="@+id/mummyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.146"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.604" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetEnd="@+id/daddyView"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="500">
+        <OnClick motion:targetId="@id/daddyImageView" />
+    </Transition>
+    <ConstraintSet android:id="@+id/staggedJump">
+        <Constraint
+            android:id="@+id/peppaImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.225" />
+        <Constraint
+            android:id="@+id/georgeImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.974"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.478" />
+        <Constraint
+            android:id="@+id/daddyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.498"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.727" />
+        <Constraint
+            android:id="@+id/mummyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.05"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.478" />
+    </ConstraintSet>
+    <Transition
+        motion:autoTransition="none"
+        motion:constraintSetEnd="@+id/staggedJump"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="1000"
+        motion:staggered="0">
+        <KeyFrameSet></KeyFrameSet>
+        <OnSwipe motion:dragDirection="dragDown" />
+    </Transition>
+    <ConstraintSet
+        android:id="@+id/side"
+        motion:deriveConstraintsFrom="@+id/start">
+        <Constraint
+            android:id="@+id/peppaImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.306" />
+        <Constraint
+            android:id="@+id/georgeImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.048" />
+        <Constraint
+            android:id="@+id/mummyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.538" />
+        <Constraint
+            android:id="@+id/daddyImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintVertical_bias="0.796" />
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetEnd="@+id/side"
+        motion:constraintSetStart="@+id/start">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:scaleX="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/peppaImageView" />
+            <KeyAttribute
+                android:scaleY="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/peppaImageView" />
+            <KeyAttribute
+                android:scaleX="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/georgeImageView" />
+            <KeyAttribute
+                android:scaleY="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/georgeImageView" />
+            <KeyAttribute
+                android:scaleX="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/daddyImageView" />
+            <KeyAttribute
+                android:scaleY="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/daddyImageView" />
+            <KeyAttribute
+                android:scaleX="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/mummyImageView" />
+            <KeyAttribute
+                android:scaleY="0.6"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/mummyImageView" />
+
+
+        </KeyFrameSet>
+        <OnSwipe motion:dragDirection="dragStart" />
+    </Transition>
+    <ConstraintSet
+        android:id="@+id/hide"
+        motion:deriveConstraintsFrom="@+id/side" />
+    <Transition
+        motion:constraintSetEnd="@+id/hide"
+        motion:constraintSetStart="@+id/side">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:translationX="-200dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/peppaImageView" />
+            <KeyAttribute
+                android:translationX="-200dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/georgeImageView" />
+            <KeyAttribute
+                android:translationX="-200dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/mummyImageView" />
+            <KeyAttribute
+                android:translationX="-200dp"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/daddyImageView" />
+        </KeyFrameSet>
+        <OnSwipe motion:dragDirection="dragStart" />
+    </Transition>
+</MotionScene>

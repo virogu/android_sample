@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/select_all"
+        android:icon="@drawable/ic_baseline_select_all_24"
+        android:title="全选/取消全选"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/select_ok"
+        android:title="确定"
+        tools:ignore="HardcodedText" />
+</menu>

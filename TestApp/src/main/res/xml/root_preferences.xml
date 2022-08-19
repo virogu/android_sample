@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:key="refresh"
+        app:title="刷新" />
+    <PreferenceCategory app:title="系统信息">
+        <Preference
+            app:key="cpu_rate"
+            app:title="CPU 使用率" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="view_ext_tag_trigger_last_time">view_ext_tag_trigger_last_time</string>
+    <string name="view_ext_tag_trigger_delay_time">view_ext_tag_trigger_delay_time</string>
+</resources>

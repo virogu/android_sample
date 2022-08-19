@@ -1,0 +1,14 @@
+<resources>
+    <string name="permission_denied_permission_tips">您拒绝了所需的权限</string>
+    <string name="permission_chat_permission_tips">您需要授权以下权限才能使用聊天功能</string>
+    <string name="permission_permission_tips">您需要授权以下权限才能继续使用</string>
+    <string name="permission_forward_to_setting_tips">您需要去设置中手动开启以下权限</string>
+    <string name="permission_positive_text">我已明白</string>
+    <string name="permission_nev_bt_text">拒绝</string>
+    <string name="permission_pos_bt_text">开启</string>
+    <string name="permission_call_permission_tips">您需要授权以下权限才能使用喊话功能</string>
+    <string name="permission_refuse">拒绝</string>
+    <string name="permission_open">开启</string>
+
+    <string name="permission_camera_permission_tips">您需要授权以下权限才可以使用相机功能</string>
+</resources>
