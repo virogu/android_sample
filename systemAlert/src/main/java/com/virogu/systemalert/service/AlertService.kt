@@ -23,9 +23,7 @@ class AlertService : Service() {
     private lateinit var binding: LayAlertBinding
 
     private val windowManager by lazy {
-        val windowManager = application.getSystemService(WINDOW_SERVICE) as WindowManager
-        Timber.i("defaultDisplay: ${windowManager.defaultDisplay}")
-        windowManager
+        application.getSystemService(WINDOW_SERVICE) as WindowManager
     }
 
     private val preferences by lazy {
@@ -54,36 +52,37 @@ class AlertService : Service() {
     override fun onCreate() {
         super.onCreate()
         if (this::binding.isInitialized) {
-            Timber.w("already initialized, return")
-            return
+            Timber.w("already initialized, remove old view")
+            removeView()
         }
         binding = LayAlertBinding.inflate(LayoutInflater.from(application))
         binding.initView()
-        showView()
+        addView()
     }
 
     override fun onDestroy() {
-        hideView()
+        removeView()
         super.onDestroy()
     }
 
-    private fun showView() {
+    private fun addView() {
         windowManager.addView(binding.root, getWindowLayoutParams())
     }
 
-    private fun hideView() {
+    private fun removeView() {
         windowManager.removeView(binding.root)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun LayAlertBinding.initView() {
-        root.setOnTouchListener(onTouchListener)
+        layRoot.setOnTouchListener(onTouchListener)
         layContainer.children.forEachIndexed { index, view ->
-            view.setTouchWithClickListener {
+            view.setOnClickListener {
                 singleToast("点击了第${index + 1}个按钮")
+                Timber.i("点击了第${index + 1}个按钮")
             }
         }
-        imgExtend.setTouchWithClickListener {
+        imgExtend.setOnClickListener {
             layContainer.isVisible = !binding.layContainer.isVisible
             imgExtend.setImageResource(
                 if (layContainer.isVisible) {
@@ -95,30 +94,29 @@ class AlertService : Service() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun <T : View> T.setTouchWithClickListener(onClicked: (T) -> Unit) {
-        this.setOnTouchListener(onTouchListener)
-        this.setOnClickListener {
-            onClicked(this)
-        }
-    }
-
     private val onTouchListener = object : View.OnTouchListener {
         private val shake = 10
         private var downX = 0f
         private var downY = 0f
         private var pair = Pair(0, 0)
+        private var tag = 0
 
         override fun onTouch(v: View, event: MotionEvent): Boolean {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     Timber.d("ACTION_DOWN: [${event.x}, ${event.y}][${event.rawX},${event.rawY}][${layoutParams.x},${layoutParams.y}]")
-                    binding.root.parent
                     downX = event.rawX
                     downY = event.rawY
                     pair = Pair(layoutParams.x, layoutParams.y)
+                    tag = 1
                 }
                 MotionEvent.ACTION_MOVE -> {
+                    if (tag == 0) {
+                        downX = event.rawX
+                        downY = event.rawY
+                        pair = Pair(layoutParams.x, layoutParams.y)
+                        tag = 1
+                    }
                     val dx = (event.rawX - downX).toInt()
                     val dy = (event.rawY - downY).toInt()
                     Timber.v("ACTION_MOVE: [${event.x}, ${event.y}][${event.rawX},${event.rawY}][$dx,$dy]")
@@ -144,6 +142,7 @@ class AlertService : Service() {
                     windowManager.updateViewLayout(binding.root, layoutParams)
                 }
                 MotionEvent.ACTION_UP -> {
+                    tag = 0
                     val dx = event.rawX - downX
                     val dy = event.rawY - downY
                     if (abs(dx) < shake && abs(dy) < shake) {

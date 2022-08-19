@@ -16,8 +16,8 @@
     app:cardElevation="0dp"
     app:cardUseCompatPadding="false">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <com.virogu.systemalert.view.InterceptTouchLinearLayout
+        android:id="@+id/lay_root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -86,7 +86,7 @@
             android:padding="14dp"
             android:src="@drawable/ic_baseline_keyboard_arrow_up"
             tools:ignore="ContentDescription,HardcodedText" />
-    </LinearLayout>
+    </com.virogu.systemalert.view.InterceptTouchLinearLayout>
 
 
 </com.google.android.material.card.MaterialCardView>

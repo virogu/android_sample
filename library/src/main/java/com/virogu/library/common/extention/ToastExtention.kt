@@ -27,8 +27,9 @@ fun Context.toast(
 ) {
     if (singleInstance) {
         toast?.cancel()
-        toast = Toast.makeText(applicationContext, msg, duration)
-        toast?.show()
+        toast = Toast.makeText(applicationContext, msg, duration).apply {
+            show()
+        }
     } else {
         Toast.makeText(applicationContext, msg, duration).show()
     }
