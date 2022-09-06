@@ -3,12 +3,10 @@ package com.virogu.library.view.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +15,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import com.google.android.material.textview.MaterialTextView
 import com.virogu.library.R
+
 
 data class TextWithColor(
     val text: String,
@@ -37,16 +38,19 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
 
         private val dialog: CommonConfirmDialog = CommonConfirmDialog(context)
         private val layout: View
-        private val title: AppCompatTextView
+        private val title: MaterialTextView
         private val btOk: Button
         private val btCancel: Button
         private val tvText: TextView
         private var cancelable: Boolean = true
-        private var onCancelListener: (() -> Unit)? = {}
-        private var onPositiveListener: (() -> Unit)? = {}
+        private var onShowListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null
+        private var onDismissListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null
+        private var onCancelListener: (() -> Unit)? = null
+        private var onPositiveListener: (() -> Unit)? = null
         private var textList: List<TextWithColor> = emptyList()
         private var btOkText: String = context.getString(android.R.string.ok)
         private var btCancelText: String = context.getString(android.R.string.cancel)
+        private var textGravity = Gravity.CENTER
         //private var warnTextPosition: List<Int> = emptyList()
 
         init {
@@ -62,16 +66,6 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
             }
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setView(layout, 0, 0, 0, 0)
-            dialog.setOnShowListener {
-                dialog.window?.apply {
-                    setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    val params = attributes
-                    params.gravity = Gravity.CENTER
-                    params.width =
-                        context.resources.getDimensionPixelOffset(R.dimen.common_dialog_min_width)
-                    attributes = params
-                }
-            }
         }
 
         fun setTitle(title: String): Builder {
@@ -124,6 +118,11 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
             return this
         }
 
+        fun setTextGravity(gravity: Int): Builder {
+            this.textGravity = gravity
+            return this
+        }
+
         fun setTextSize(size: Float): Builder {
             this.tvText.textSize = size
             return this
@@ -131,6 +130,16 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
 
         fun setCancelable(cancelable: Boolean): Builder {
             this.cancelable = cancelable
+            return this
+        }
+
+        fun setOnShowListener(listener: ((DialogInterface, CommonConfirmDialog) -> Unit)?): Builder {
+            this.onShowListener = listener
+            return this
+        }
+
+        fun setOnDismissListener(listener: ((DialogInterface, CommonConfirmDialog) -> Unit)?): Builder {
+            this.onDismissListener = listener
             return this
         }
 
@@ -146,13 +155,26 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
 
         fun build(): CommonConfirmDialog {
             dialog.setCancelable(cancelable)
-            tvText.text = SpannableStringBuilder().apply {
+            dialog.setOnShowListener {
+                dialog.window?.apply {
+                    setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    val params = attributes
+                    params.gravity = Gravity.CENTER
+                    params.width =
+                        context.resources.getDimensionPixelOffset(R.dimen.common_dialog_min_width)
+                    attributes = params
+                }
+                onShowListener?.invoke(it, dialog)
+            }
+            dialog.setOnDismissListener {
+                onDismissListener?.invoke(it, dialog)
+            }
+            tvText.gravity = textGravity
+            tvText.text = buildSpannedString {
                 textList.forEach {
-                    append(
-                        it.text,
-                        ForegroundColorSpan(it.textColor),
-                        Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-                    )
+                    color(it.textColor) {
+                        append(it.text)
+                    }
                 }
             }
             btOk.text = btOkText

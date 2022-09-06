@@ -30,12 +30,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.compileJavaVersion
+        targetCompatibility = Versions.compileJavaVersion
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "${Versions.compileJavaVersion}"
     }
     sourceSets {
         //main {
@@ -48,6 +48,7 @@ dependencies {
 
     implementation(Libs.Common.appcompat)
     implementation(Libs.Common.core_ktx)
+    implementation(Libs.Material.material)
     implementation(Libs.Common.constraintLayout)
     implementation(Libs.Common.preference_ktx)
 

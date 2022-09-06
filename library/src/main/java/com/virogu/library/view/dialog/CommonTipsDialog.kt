@@ -3,12 +3,10 @@ package com.virogu.library.view.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +14,9 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import com.google.android.material.textview.MaterialTextView
 import com.virogu.library.R
 import kotlinx.coroutines.*
 
@@ -29,13 +29,16 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
 
         private val dialog: CommonTipsDialog = CommonTipsDialog(context)
         private val layout: View
-        private val title: AppCompatTextView
+        private val title: MaterialTextView
         private val btOk: Button
         private val tvText: TextView
         private var cancelable: Boolean = true
-        private var onCloseListener: (() -> Unit)? = {}
+        private var onShowListener: ((DialogInterface, CommonTipsDialog) -> Unit)? = null
+        private var onDismissListener: ((DialogInterface, CommonTipsDialog) -> Unit)? = null
+        private var onCloseListener: (() -> Unit)? = null
         private var textList: List<TextWithColor> = emptyList()
         private var btOkText: String = context.getString(android.R.string.ok)
+        private var textGravity = Gravity.CENTER
 
         private var delaySecond = 0L
 
@@ -97,6 +100,11 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
             return this
         }
 
+        fun setTextGravity(gravity: Int): Builder {
+            this.textGravity = gravity
+            return this
+        }
+
         fun setTextSize(size: Float): Builder {
             this.tvText.textSize = size
             return this
@@ -115,6 +123,16 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
             return this
         }
 
+        fun setOnShowListener(listener: ((DialogInterface, CommonTipsDialog) -> Unit)?): Builder {
+            this.onShowListener = listener
+            return this
+        }
+
+        fun setOnDismissListener(listener: ((DialogInterface, CommonTipsDialog) -> Unit)?): Builder {
+            this.onDismissListener = listener
+            return this
+        }
+
         fun setOnCloseListener(onCloseListener: (() -> Unit)?): Builder {
             this.onCloseListener = onCloseListener
             return this
@@ -123,13 +141,12 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
         @SuppressLint("SetTextI18n")
         fun build(): CommonTipsDialog {
             dialog.setCancelable(cancelable)
-            tvText.text = SpannableStringBuilder().apply {
+            tvText.gravity = textGravity
+            tvText.text = buildSpannedString {
                 textList.forEach {
-                    append(
-                        it.text,
-                        ForegroundColorSpan(it.textColor),
-                        Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-                    )
+                    color(it.textColor) {
+                        append(it.text)
+                    }
                 }
             }
             btOk.text = btOkText
@@ -144,6 +161,7 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
             cancelJob()
             dialog.setOnDismissListener {
                 cancelJob()
+                onDismissListener?.invoke(it, dialog)
             }
             dialog.setOnShowListener {
                 dialog.window?.apply {
@@ -157,24 +175,24 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
                 when {
                     delaySecond > 0 -> {
                         dialog.setCancelable(false)
-                        btOk.isClickable = false
+                        btOk.isEnabled = false
                         job = coroutineScope.launch(Dispatchers.Main) {
                             var times = delaySecond
                             while (times > 0 && isActive) {
-                                btOk.text = "$btOkText（$times）"
+                                btOk.text = "$btOkText ($times)"
                                 delay(1000)
                                 times--
                             }
                             btOk.text = btOkText
-                            btOk.isClickable = true
+                            btOk.isEnabled = true
                         }
                     }
                     delaySecond < 0 -> {
-                        btOk.isClickable = true
+                        btOk.isEnabled = true
                         job = coroutineScope.launch(Dispatchers.Main) {
                             var times = delaySecond
                             while (times < 0 && isActive) {
-                                btOk.text = "$btOkText（${-times}）"
+                                btOk.text = "$btOkText (${-times})"
                                 delay(1000)
                                 times++
                             }
@@ -183,10 +201,11 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
                         }
                     }
                     else -> {
-                        btOk.isClickable = true
+                        btOk.isEnabled = true
                         cancelJob()
                     }
                 }
+                onShowListener?.invoke(it, dialog)
             }
             return dialog
         }

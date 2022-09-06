@@ -1,7 +1,9 @@
 package com.virogu.library.view.dialog
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.drawable.Drawable
+import android.view.Gravity
 import androidx.core.content.ContextCompat
 import com.virogu.library.R
 
@@ -23,15 +25,17 @@ fun Context.makeCommonTipsDialog(
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
     btCloseText: String = getString(R.string.close),
     cancelable: Boolean = false,
+    textGravity: Int = Gravity.CENTER,
     onClose: () -> Unit = {}
 ): CommonTipsDialog = makeCommonTipsDialog(
-    listOf(TextWithColor(msg)),
-    delaySecond,
-    title,
-    drawable,
-    btCloseText,
-    cancelable,
-    onClose
+    msg = listOf(TextWithColor(msg)),
+    delaySecond = delaySecond,
+    title = title,
+    drawable = drawable,
+    btCloseText = btCloseText,
+    cancelable = cancelable,
+    textGravity = textGravity,
+    onClose = onClose
 )
 
 /**
@@ -52,11 +56,13 @@ fun Context.makeCommonTipsDialog(
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
     btCloseText: String = getString(R.string.close),
     cancelable: Boolean = false,
+    textGravity: Int = Gravity.CENTER,
     onClose: () -> Unit = {}
 ): CommonTipsDialog = CommonTipsDialog.Builder(this)
     .setTitle(title)
     .setTitleDrawable(drawable)
     .setText(msg)
+    .setTextGravity(textGravity)
     .setCancelable(cancelable)
     .setCloseBtText(btCloseText)
     .setDelaySecond(delaySecond)
@@ -83,15 +89,17 @@ fun Context.showCommonTipsDialog(
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
     btCloseText: String = getString(R.string.close),
     cancelable: Boolean = false,
+    textGravity: Int = Gravity.CENTER,
     onClose: () -> Unit = {}
 ): Unit = makeCommonTipsDialog(
-    msg,
-    delaySecond,
-    title,
-    drawable,
-    btCloseText,
-    cancelable,
-    onClose
+    msg = msg,
+    delaySecond = delaySecond,
+    title = title,
+    drawable = drawable,
+    btCloseText = btCloseText,
+    cancelable = cancelable,
+    textGravity = textGravity,
+    onClose = onClose
 ).show()
 
 /**
@@ -112,15 +120,17 @@ fun Context.showCommonTipsDialog(
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
     btCloseText: String = getString(R.string.close),
     cancelable: Boolean = false,
+    textGravity: Int = Gravity.CENTER,
     onClose: () -> Unit = {}
 ): Unit = makeCommonTipsDialog(
-    msg,
-    delaySecond,
-    title,
-    drawable,
-    btCloseText,
-    cancelable,
-    onClose
+    msg = msg,
+    delaySecond = delaySecond,
+    title = title,
+    drawable = drawable,
+    btCloseText = btCloseText,
+    cancelable = cancelable,
+    textGravity = textGravity,
+    onClose = onClose
 ).show()
 
 /**
@@ -135,12 +145,18 @@ fun Context.makeConfirmDialog(
     text: String,
     title: String = getString(R.string.tips),
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
+    textGravity: Int = Gravity.CENTER,
+    onCancelListener: () -> Unit = {},
+    onDismissListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null,
     onPositiveListener: () -> Unit = {}
 ): CommonConfirmDialog = makeConfirmDialog(
-    listOf(TextWithColor(text)),
-    title,
-    drawable,
-    onPositiveListener
+    textList = listOf(TextWithColor(text)),
+    title = title,
+    drawable = drawable,
+    textGravity = textGravity,
+    onCancelListener = onCancelListener,
+    onDismissListener = onDismissListener,
+    onPositiveListener = onPositiveListener
 )
 
 /**
@@ -155,14 +171,20 @@ fun Context.makeConfirmDialog(
     textList: List<TextWithColor>,
     title: String = getString(R.string.tips),
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
-    onPositiveListener: () -> Unit = {}
+    textGravity: Int = Gravity.CENTER,
+    onCancelListener: () -> Unit = {},
+    onDismissListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null,
+    onPositiveListener: () -> Unit = {},
 ): CommonConfirmDialog = CommonConfirmDialog.Builder(this)
     .setTitle(title)
     .setTitleDrawable(drawable)
     .setCancelable(false)
-    .setText(textList).setOnPositiveListener {
-        onPositiveListener()
-    }.build()
+    .setTextGravity(textGravity)
+    .setText(textList)
+    .setOnCancelListener(onCancelListener)
+    .setOnDismissListener(onDismissListener)
+    .setOnPositiveListener(onPositiveListener)
+    .build()
 
 /**
  * @param text the content of dialog
@@ -176,12 +198,18 @@ fun Context.showConfirmDialog(
     text: String,
     title: String = getString(R.string.tips),
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
+    textGravity: Int = Gravity.CENTER,
+    onCancelListener: () -> Unit = {},
+    onDismissListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null,
     onPositiveListener: () -> Unit = {}
 ) = makeConfirmDialog(
-    text,
-    title,
-    drawable,
-    onPositiveListener
+    text = text,
+    title = title,
+    drawable = drawable,
+    textGravity = textGravity,
+    onCancelListener = onCancelListener,
+    onDismissListener = onDismissListener,
+    onPositiveListener = onPositiveListener
 ).show()
 
 /**
@@ -196,10 +224,16 @@ fun Context.showConfirmDialog(
     textList: List<TextWithColor>,
     title: String = getString(R.string.tips),
     drawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.ic_baseline_warning),
+    textGravity: Int = Gravity.CENTER,
+    onCancelListener: () -> Unit = {},
+    onDismissListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null,
     onPositiveListener: () -> Unit = {}
 ) = makeConfirmDialog(
-    textList,
-    title,
-    drawable,
-    onPositiveListener
+    textList = textList,
+    title = title,
+    drawable = drawable,
+    textGravity = textGravity,
+    onDismissListener = onDismissListener,
+    onCancelListener = onCancelListener,
+    onPositiveListener = onPositiveListener
 ).show()

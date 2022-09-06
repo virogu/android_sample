@@ -66,6 +66,19 @@ class SpinnerDatePickerDialog(context: Context) : AlertDialog(context) {
             return this
         }
 
+        fun setDate(date: Long): Builder {
+            if (date > 0) {
+                val calendar = Calendar.getInstance()
+                calendar.time = Date(date)
+                datePicker.updateDate(
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                )
+            }
+            return this
+        }
+
         fun setTitle(title: String): Builder {
             this.title.text = title
             return this
