@@ -1,85 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:clickable="true"
-    android:elevation="0dp"
-    android:focusable="true"
-    android:orientation="vertical"
     android:theme="@style/Theme.MySamples"
-    app:cardBackgroundColor="#BAFFFFFF"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="0dp"
-    app:cardUseCompatPadding="false">
+    tools:background="#4CAF50">
 
     <com.virogu.systemalert.view.InterceptTouchLinearLayout
-        android:id="@+id/lay_root"
+        android:id="@+id/lay_extend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_top_round_corner"
+        android:backgroundTint="#BAFFFFFF"
+        android:backgroundTintMode="src_in"
         android:orientation="vertical"
-        android:paddingHorizontal="2dp"
-        android:paddingVertical="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/card_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/lay_container"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="#00FFFFFF"
-                android:contentDescription="悬浮按钮"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_bubble_chart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="#00FFFFFF"
-                android:contentDescription="悬浮按钮"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_bubble_chart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="#00FFFFFF"
-                android:contentDescription="悬浮按钮"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_bubble_chart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/img_extend"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:contentDescription="显示按钮"
@@ -88,5 +34,32 @@
             tools:ignore="ContentDescription,HardcodedText" />
     </com.virogu.systemalert.view.InterceptTouchLinearLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="#BAFFFFFF"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
 
-</com.google.android.material.card.MaterialCardView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_float_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:itemCount="20"
+            tools:listitem="@layout/float_menu_item" />
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

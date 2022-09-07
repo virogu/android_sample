@@ -9,11 +9,13 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.view.*
-import androidx.core.view.children
 import androidx.core.view.isVisible
-import com.virogu.library.common.extention.singleToast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.virogu.library.common.extention.toast
 import com.virogu.systemalert.R
 import com.virogu.systemalert.databinding.LayAlertBinding
+import com.virogu.systemalert.menu.FloatMenu
+import com.virogu.systemalert.menu.FloatMenuAdapter
 import timber.log.Timber
 import kotlin.math.abs
 import kotlin.math.min
@@ -32,6 +34,29 @@ class AlertService : Service() {
 
     private val layoutParams by lazy {
         getWindowLayoutParams()
+    }
+
+    private val menuList by lazy {
+        listOf(
+            FloatMenu("111") { menu, context ->
+                context.toast(menu.name)
+            },
+            FloatMenu("222") { menu, context ->
+                context.toast(menu.name)
+            },
+            FloatMenu("333") { menu, context ->
+                context.toast(menu.name)
+            },
+            FloatMenu("444") { menu, context ->
+                context.toast(menu.name)
+            },
+            FloatMenu("555") { menu, context ->
+                context.toast(menu.name)
+            },
+            FloatMenu("666") { menu, context ->
+                context.toast(menu.name)
+            },
+        )
     }
 
     companion object {
@@ -75,23 +100,27 @@ class AlertService : Service() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun LayAlertBinding.initView() {
-        layRoot.setOnTouchListener(onTouchListener)
-        layContainer.children.forEachIndexed { index, view ->
-            view.setOnClickListener {
-                singleToast("点击了第${index + 1}个按钮")
-                Timber.i("点击了第${index + 1}个按钮")
-            }
-        }
+        layExtend.setOnTouchListener(onTouchListener)
         imgExtend.setOnClickListener {
-            layContainer.isVisible = !binding.layContainer.isVisible
-            imgExtend.setImageResource(
-                if (layContainer.isVisible) {
-                    R.drawable.ic_baseline_keyboard_arrow_up
-                } else {
-                    R.drawable.ic_baseline_keyboard_arrow_down
-                }
-            )
+            cardContent.isVisible = !cardContent.isVisible
+            refreshExtend()
         }
+        refreshExtend()
+        val adapter = FloatMenuAdapter()
+        listFloatMenu.layoutManager =
+            LinearLayoutManager(this@AlertService, LinearLayoutManager.HORIZONTAL, false)
+        listFloatMenu.adapter = adapter
+        adapter.submitList(menuList)
+    }
+
+    private fun LayAlertBinding.refreshExtend() {
+        imgExtend.setImageResource(
+            if (cardContent.isVisible) {
+                R.drawable.ic_baseline_keyboard_arrow_down
+            } else {
+                R.drawable.ic_baseline_keyboard_arrow_up
+            }
+        )
     }
 
     private val onTouchListener = object : View.OnTouchListener {
@@ -123,20 +152,8 @@ class AlertService : Service() {
                     if (abs(dx) < shake && abs(dy) < shake) {
                         return true
                     }
-                    val targetX = with(pair.first + dx) {
-                        if (this < 0) {
-                            0
-                        } else {
-                            min(this, event.rawX.toInt())
-                        }
-                    }
-                    val targetY = with(pair.second + dy) {
-                        if (this < 0) {
-                            0
-                        } else {
-                            min(this, event.rawY.toInt())
-                        }
-                    }
+                    val targetX = min(pair.first + dx, event.rawX.toInt()).coerceAtLeast(0)
+                    val targetY = min(pair.second + dy, event.rawY.toInt()).coerceAtLeast(0)
                     layoutParams.x = targetX
                     layoutParams.y = targetY
                     windowManager.updateViewLayout(binding.root, layoutParams)

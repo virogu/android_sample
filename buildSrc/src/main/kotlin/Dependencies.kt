@@ -77,7 +77,7 @@ object Libs {
     }
 
     object PermissionX {
-        const val permissionX = "com.guolindev.permissionx:permissionx:1.6.1"
+        const val permissionX = "com.guolindev.permissionx:permissionx:1.6.4"
     }
 
     object Navigation {
