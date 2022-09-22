@@ -5,7 +5,7 @@ object Versions {
     const val minSdk = 21
     const val targetSdkVersion = 32
 
-    const val kotlinVersion: String = "1.6.21"
+    const val kotlinVersion: String = "1.7.10"
 
     val compileJavaVersion: JavaVersion = JavaVersion.VERSION_11
 }

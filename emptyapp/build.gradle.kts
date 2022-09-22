@@ -31,7 +31,21 @@ android {
     }
 
     signingConfigs {
-        create("release") {
+        create("a_debug") {
+            storeFile = file("../virogu-test.jks")
+            storePassword = "123456"
+            keyAlias = "test"
+            keyPassword = "123456"
+        }
+
+        create("a_release") {
+            storeFile = file("../virogu-test.jks")
+            storePassword = "123456"
+            keyAlias = "test"
+            keyPassword = "123456"
+        }
+
+        create("b") {
             storeFile = file("../virogu-test.jks")
             storePassword = "123456"
             keyAlias = "test"
@@ -49,7 +63,7 @@ android {
     buildTypes {
         release {
             isDebuggable = true
-            signingConfig = signingConfigs.getByName("release")
+            //signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(
@@ -59,13 +73,49 @@ android {
         }
 
         debug {
-            signingConfig = signingConfigs.getByName("debug")
+            //signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+    }
+
+    flavorDimensions.addAll(listOf("product"))
+
+    productFlavors {
+        create("aFlavor") {
+            dimension = "product"
+
+            buildTypes {
+                release {
+                    isDebuggable = true
+                    signingConfig = signingConfigs.getByName("a_release")
+                    isMinifyEnabled = false
+                    isShrinkResources = false
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
+                }
+
+                debug {
+                    signingConfig = signingConfigs.getByName("a_debug")
+                    isMinifyEnabled = false
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
+                }
+            }
+        }
+
+        create("bFlavor") {
+            dimension = "product"
+            signingConfig = signingConfigs.getByName("b")
+        }
+
     }
 
     compileOptions {
@@ -107,6 +157,8 @@ dependencies {
     implementation(Libs.Lifecycle.viewModelKtx)
     implementation(Libs.Lifecycle.livedataKtx)
     implementation(Libs.Lifecycle.extensions)
+
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha03")
 
     navigationAll()
 
