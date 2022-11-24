@@ -91,4 +91,8 @@ object Libs {
         const val mars_xlog = "com.tencent.mars:mars-xlog:1.2.6"
     }
 
+    object PhilJay {
+        const val MPAndroidChart = "com.github.PhilJay:MPAndroidChart:v3.1.0"
+    }
+
 }

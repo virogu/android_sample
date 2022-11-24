@@ -18,6 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters.add("arm64-v8a")
+            abiFilters.add("armeabi")
         }
     }
 
@@ -79,16 +80,17 @@ android {
 }
 
 dependencies {
+    implementation(project(":base"))
+
     application()
     coroutines()
     lifecycle()
     navigationCommon()
 
     implementation(Libs.Common.preference_ktx)
-
     implementation(Libs.Timber.timber)
-
     implementation(Libs.PermissionX.permissionX)
+    implementation(Libs.PhilJay.MPAndroidChart)
 
     test()
 }
