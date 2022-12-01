@@ -2,6 +2,7 @@ package com.example.testapp.bean
 
 import com.example.testapp.activity.SensorActivity
 import com.example.testapp.chart.LinerChartFragment
+import com.example.testapp.datepicker.DatePickerFragment
 import com.example.testapp.fragment.ProgressBarFragment
 import com.example.testapp.fragment.SystemInfoFragment
 import com.example.testapp.navigation.BottomNavigationActivity
@@ -36,4 +37,8 @@ enum class PagerBean(
         { LinerChartFragment.newInstance() },
         "LinerChart"
     ),
+    DatePicker(
+        "DatePicker",
+        { DatePickerFragment.newInstance() }
+    )
 }

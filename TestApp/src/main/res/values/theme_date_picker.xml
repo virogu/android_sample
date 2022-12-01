@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DatePicker" />
+
+    <style name="DatePicker.MaterialDatePicker" parent="@style/MaterialCalendar">
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <!-- Customize text field of the text input mode. -->
+        <item name="buttonBarPositiveButtonStyle">@style/DatePicker.ButtonPositive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DatePicker.ButtonNegative</item>
+    </style>
+
+    <style name="DatePicker.Orange" parent="DatePicker.MaterialDatePicker">
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#1D1D1D</item>
+        <item name="colorPrimary">#F88D2D</item>
+        <item name="colorPrimaryVariant">#FF6008</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#C2DEEB</item>
+        <item name="colorOnSecondary">#1D1D1D</item>
+    </style>
+
+    <style name="MaterialCalendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:colorBackground">?attr/colorSurface</item>
+        <item name="materialCalendarStyle">@style/DatePicker.MaterialCalendar</item>
+        <item name="textInputStyle">@style/DatePicker.TextInputLayout</item>
+
+        <item name="materialCalendarYearNavigationButton">@style/DatePicker.YearNavigationButton
+        </item>
+        <item name="materialCalendarMonthNavigationButton">@style/DatePicker.MonthNavigationButton
+        </item>
+
+        <!-- Header Styles -->
+        <item name="materialCalendarHeaderLayout">@style/DatePicker.HeaderLayout</item>
+        <item name="materialCalendarHeaderSelection">@style/DatePicker.HeaderSelection</item>
+        <item name="materialCalendarHeaderTitle">@style/DatePicker.HeaderTitle</item>
+        <item name="materialCalendarHeaderToggleButton">@style/DatePicker.HeaderToggleButton</item>
+
+        <!-- Grid Styles -->
+        <item name="materialCalendarDayOfWeekLabel">@style/DatePicker.DayOfWeekLabel</item>
+        <item name="materialCalendarDay">@style/DatePicker.DayTextView</item>
+        <item name="materialCalendarMonth">@style/DatePicker.MonthTextView</item>
+    </style>
+
+    <style name="DatePicker.MaterialCalendar" parent="@style/Widget.MaterialComponents.MaterialCalendar">
+
+    </style>
+
+    <style name="DatePicker.HeaderLayout" parent="android:Widget">
+        <item name="android:background">?attr/colorSecondary</item>
+    </style>
+
+    <style name="DatePicker.TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/DatePicker.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="DatePicker.TextInputEditText.OutlinedBox" parent="@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="editTextStyle">@style/DatePicker.TextInputEditText.EditTextStyle</item>
+    </style>
+
+    <style name="DatePicker.TextInputEditText.EditTextStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="DatePicker.HeaderSelection" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderSelection">
+        <item name="android:textAppearance">@style/DatePicker.TextAppearanceTitleSelection</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">24sp</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+    </style>
+
+    <style name="DatePicker.HeaderTitle" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderTitle">
+        <item name="android:textAppearance">@style/DatePicker.TextAppearanceHeaderTitle</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">20sp</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+    </style>
+
+    <style name="DatePicker.HeaderToggleButton" parent="@style/Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:background">?attr/actionBarItemBackground</item>
+        <item name="android:tint">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="DatePicker.DayOfWeekLabel" parent="@style/Widget.MaterialComponents.MaterialCalendar.DayOfWeekLabel">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textAppearance">@style/DatePicker.TextAppearanceWeek</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">26sp</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+    </style>
+
+    <style name="DatePicker.DayTextView" parent="@style/Widget.MaterialComponents.MaterialCalendar.DayTextView">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textAppearance">@style/DatePicker.TextAppearanceDay</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">23sp</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+    </style>
+
+    <style name="DatePicker.MonthTextView" parent="@style/Widget.MaterialComponents.MaterialCalendar.MonthTextView">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textAppearance">@style/DatePicker.TextAppearanceMonth</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">20sp</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+    </style>
+
+    <style name="DatePicker.YearNavigationButton" parent="@style/Widget.MaterialComponents.MaterialCalendar.YearNavigationButton">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">20sp</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+    </style>
+
+    <style name="DatePicker.MonthNavigationButton" parent="@style/Widget.MaterialComponents.MaterialCalendar.MonthNavigationButton">
+        <!--        <item name="android:textColor">?attr/colorOnPrimary</item>-->
+        <item name="android:layout_margin">8dp</item>
+        <item name="iconTint">?attr/colorOnPrimary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="iconSize">25dp</item>
+        <item name="rippleColor">@color/black_ripple</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="cornerRadius">100dp</item>
+    </style>
+
+    <style name="DatePicker.TextAppearanceTitle" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:gravity">center|start</item>
+        <item name="android:layout_gravity">center|start</item>
+    </style>
+
+    <style name="DatePicker.TextAppearanceTitleSelection" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:gravity">center|start</item>
+        <item name="android:layout_gravity">center|start</item>
+    </style>
+
+    <style name="DatePicker.TextAppearanceHeaderTitle" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:gravity">center|start</item>
+        <item name="android:layout_gravity">center|start</item>
+    </style>
+
+    <style name="DatePicker.TextAppearanceMonth" parent="TextAppearance.MaterialComponents.Subtitle2">
+
+    </style>
+
+    <style name="DatePicker.TextAppearanceWeek" parent="TextAppearance.MaterialComponents.Body2">
+
+    </style>
+
+    <style name="DatePicker.TextAppearanceDay" parent="TextAppearance.MaterialComponents.Caption">
+
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="DatePicker.Button" parent="Widget.MaterialComponents.Button">
+        <item name="rippleColor">@color/black_ripple</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="elevation">0dp</item>
+        <item name="android:elevation">0dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minWidth">145dp</item>
+        <item name="android:minHeight">55dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">29sp</item>
+        <item name="autoSizeMinTextSize">2sp</item>
+    </style>
+
+    <style name="DatePicker.ButtonPositive" parent="DatePicker.Button">
+        <item name="backgroundTint">#FF6008</item>
+    </style>
+
+    <style name="DatePicker.ButtonNegative" parent="DatePicker.Button">
+        <item name="backgroundTint">#FFF88D2D</item>
+    </style>
+
+</resources>
