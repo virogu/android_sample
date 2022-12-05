@@ -2,10 +2,12 @@ package com.example.testapp.datepicker
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.util.Pair
 import com.example.testapp.R
 import com.example.testapp.databinding.FragmentDatePickerBinding
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.virogu.base.fragment.BaseBindingFragment
 
@@ -37,9 +39,17 @@ class DatePickerFragment : BaseBindingFragment<FragmentDatePickerBinding>() {
                     )
                 )
                 .setCalendarConstraints(CalendarConstraints.Builder().apply {
-
+                    setValidator(DateValidatorPointBackward.now())
                 }.build())
-                .build()
+                .build().apply {
+                    addOnPositiveButtonClickListener {
+                        if (it.second - it.first > 6 * 24 * 60 * 60 * 1000) {
+                            Toast.makeText(requireContext(), "最大选择七天范围", Toast.LENGTH_SHORT).show()
+                            return@addOnPositiveButtonClickListener
+                        }
+                    }
+                    isCancelable = false
+                }
             dateRangePiker?.show(childFragmentManager, "dateRangePicker")
         }
     }

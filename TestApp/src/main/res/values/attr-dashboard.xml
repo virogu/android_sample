@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DashboardView">
+        <!--内环颜色-->
+        <attr name="arcInnerColor" format="color" />
+        <!--外环颜色-->
+        <attr name="arcOutColor" format="color" />
+        <!--环大小-->
+        <attr name="arcWidth" format="dimension" />
+        <!-- 数值文字-->
+        <attr name="arcValueTextSize" format="dimension" />
+        <attr name="arcTextColor" format="color" />
+        <!-- 刻度文字-->
+        <attr name="arcScaleTextSize" format="dimension" />
+        <attr name="arcScaleColor" format="color" />
+        <attr name="arcScaleMargin" format="dimension" />
+        <!--图标-->
+        <attr name="arcIcon" format="reference" />
+        <attr name="arcIconMargin" format="dimension" />
+        <!-- 描述文字-->
+        <attr name="arcDescTextSize" format="dimension" />
+        <attr name="arcDescColor" format="color" />
+        <attr name="arcDescMargin" format="dimension" />
+        <!-- 切除的角度  0-180 -->
+        <attr name="arcCutAngle" format="float" />
+        <attr name="arcProgress" format="float" />
+        <!-- 最大刻度-->
+        <attr name="arcMaxProgress" format="float" />
+        <!-- 最小刻度-->
+        <attr name="arcMinProgress" format="float" />
+        <attr name="arcStep" format="float" />
+    </declare-styleable>
+</resources>

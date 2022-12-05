@@ -25,7 +25,7 @@ import com.example.testapp.R;
 
 import java.text.SimpleDateFormat;
 
-public class DashboardView extends View {
+public class DashboardView1 extends View {
 
     private int mRadius; // 画布边缘半径（去除padding后的半径）
     private int mStartAngle = 150; // 起始角度
@@ -58,15 +58,15 @@ public class DashboardView extends View {
     private boolean isAnimFinish = true;
     private float mAngleWhenAnim;
 
-    public DashboardView(Context context) {
+    public DashboardView1(Context context) {
         this(context, null);
     }
 
-    public DashboardView(Context context, AttributeSet attrs) {
+    public DashboardView1(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DashboardView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DashboardView1(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init();
