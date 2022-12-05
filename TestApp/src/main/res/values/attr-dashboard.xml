@@ -16,6 +16,7 @@
         <attr name="arcScaleMargin" format="dimension" />
         <!--图标-->
         <attr name="arcIcon" format="reference" />
+        <attr name="arcIconSize" format="dimension" />
         <attr name="arcIconMargin" format="dimension" />
         <!-- 描述文字-->
         <attr name="arcDescTextSize" format="dimension" />

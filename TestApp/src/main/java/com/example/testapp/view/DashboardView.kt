@@ -49,13 +49,6 @@ class DashboardView @JvmOverloads constructor(
 
     companion object {
         private const val debug = false
-        private const val defaultValueSize = 80f
-        private const val defaultScaleTextSize = 14f
-        private const val defaultScaleTextMargin = 0f
-        private const val defaultDescTextSize = 20f
-        private const val defaultArcWidth = 20f
-        private const val defaultDescMargin = 8f
-        private const val defaultIconMargin = 8f
     }
 
     private var callback: Callback? = object : Callback {
@@ -65,15 +58,16 @@ class DashboardView @JvmOverloads constructor(
     private var arcInnerColor: Int = Color.parseColor("#355EDC")
     private var arcOutColor: Int = Color.parseColor("#E6E6E8")
 
-    private var arcLineWidth: Float = defaultArcWidth.dp
+    private var arcLineWidth: Float = 10.dp
 
-    private var valueTextSize: Float = defaultValueSize.sp
-    private var scaleTextSize: Float = defaultScaleTextSize.sp
-    private var descTextSize: Float = defaultDescTextSize.sp
+    private var valueTextSize: Float = 60.sp
+    private var scaleTextSize: Float = 14.sp
+    private var descTextSize: Float = 20.sp
 
-    private var descTextMargin: Float = defaultDescMargin.dp
-    private var scaleTextMargin: Float = defaultScaleTextMargin.dp
-    private var iconMargin: Float = defaultIconMargin.dp
+    private var descTextMargin: Float = 8.dp
+    private var scaleTextMargin: Float = 0.dp
+    private var iconMargin: Float = 0.dp
+    private var iconSize: Float? = null
 
     private var cutAngle: Float = 45f
         set(value) {
@@ -86,7 +80,7 @@ class DashboardView @JvmOverloads constructor(
 
     private var arcValueColor: Int = Color.parseColor("#355EDC")
     private var arcScaleColor: Int = Color.parseColor("#999999")
-    private var arcDescColor: Int = Color.parseColor("#999999")
+    private var arcDescColor: Int = Color.parseColor("#355EDC")
 
     private var maxProgress: Float = 120f
     private var minProgress: Float = 20f
@@ -102,7 +96,11 @@ class DashboardView @JvmOverloads constructor(
     private var processText: String = callback?.getProgressText(currentProgress) ?: ""
     private var descText: String = callback?.getDescText(currentProgress) ?: ""
 
-    private var bitmap: Bitmap? = null
+    private var bitmap: Bitmap? = if (debug) {
+        BitmapFactory.decodeResource(resources, android.R.drawable.ic_delete)
+    } else {
+        null
+    }
 
     private val paint = Paint()
     private val textPaint = Paint().apply {
@@ -113,7 +111,6 @@ class DashboardView @JvmOverloads constructor(
     }
     private val rectF = RectF()
     private val rect = Rect()
-
     private var offsetH: Float = 0f
     private var centerX: Float = width / 2f
     private var centerY: Float = height / 2f
@@ -128,17 +125,17 @@ class DashboardView @JvmOverloads constructor(
         val h = MeasureSpec.getSize(heightMeasureSpec)
         val size = w.coerceAtMost(h)
         val r = size / 2
-        val minusH = r - r * cos((startAngle - 90).degree)
+        val minusH = r - r * cos((startAngle - 90).degree) - arcLineWidth
         val actualH = size - minusH
         offsetH = (size - actualH).toFloat()
-        setMeasuredDimension(size, actualH.toInt())
+        setMeasuredDimension(size, size)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         size = max(w, h)
         centerX = w / 2f
-        centerY = h / 2f
+        centerY = h / 2f + offsetH
         scaleRadius = (size / 2f) - arcLineWidth * 2 - scaleTextMargin
     }
 
@@ -163,9 +160,9 @@ class DashboardView @JvmOverloads constructor(
         val tempW = arcLineWidth / 2
         rectF.set(
             tempW,
-            tempW,
+            tempW + offsetH,
             size - tempW,
-            size - tempW
+            size - tempW + offsetH
         )
         canvas.drawArc(rectF, startAngle, sweepAngle, false, paint)
 
@@ -221,17 +218,24 @@ class DashboardView @JvmOverloads constructor(
 
         bitmap?.also { bp ->
             paint.reset()
-            canvas.drawBitmap(bp, centerX - bp.width / 2, height - bp.height - iconMargin, paint)
+            val size: Float = iconSize ?: bp.width.coerceAtLeast(bp.height).toFloat()
+            rect.set(
+                (centerX - size / 2).toInt(),
+                (height - size - iconMargin).toInt(),
+                (centerX + size / 2).toInt(),
+                (height - iconMargin).toInt()
+            )
+            canvas.drawBitmap(bp, null, rect, paint)
         }
 
         textPaint.apply {
-            color = arcDescColor
+            color = arcScaleColor
             textSize = scaleTextSize
         }
         // 每项的间距角度
         if (debug) {
             paint.style = Paint.Style.STROKE
-            canvas.drawCircle(centerX, centerY + offsetH / 2, scaleRadius, paint)
+            canvas.drawCircle(centerX, centerY, scaleRadius, paint)
         }
         //val deltaAngle = (sweepAngle / (meters.size - 1))
         val scaleCount = (maxProgress - minProgress) / progressStep
@@ -244,9 +248,9 @@ class DashboardView @JvmOverloads constructor(
             val offsetX = (cos(currentAngleInRad.degree) * (scaleRadius)).toInt()
             val offsetY = (sin(currentAngleInRad.degree) * (scaleRadius)).toInt()
             val x = centerX + offsetX
-            val y = centerY + offsetY + offsetH / 2
+            val y = centerY + offsetY
             if (debug) {
-                canvas.drawLine(centerX, centerY + offsetH / 2, x, y, paint)
+                canvas.drawLine(centerX, centerY, x, y, paint)
             }
             canvas.drawText(s, x, y, textPaint)
         }
@@ -298,36 +302,42 @@ class DashboardView @JvmOverloads constructor(
         get() = toFloat().sp
 
     init {
-        context.obtainStyledAttributes(attrs, R.styleable.DashboardView).use {
+        context.obtainStyledAttributes(attrs, R.styleable.DashboardView).also {
             arcInnerColor = it.getColor(R.styleable.DashboardView_arcInnerColor, arcInnerColor)
             arcOutColor = it.getColor(R.styleable.DashboardView_arcOutColor, arcOutColor)
-            arcLineWidth = it.getDimension(R.styleable.DashboardView_arcWidth, defaultArcWidth).dp
+            arcLineWidth = it.getDimension(R.styleable.DashboardView_arcWidth, arcLineWidth)
 
             valueTextSize =
-                it.getDimension(R.styleable.DashboardView_arcValueTextSize, defaultValueSize).dp
+                it.getDimension(R.styleable.DashboardView_arcValueTextSize, valueTextSize)
             arcValueColor = it.getColor(R.styleable.DashboardView_arcTextColor, arcValueColor)
 
             scaleTextSize =
-                it.getDimension(R.styleable.DashboardView_arcScaleColor, defaultScaleTextSize).dp
+                it.getDimension(R.styleable.DashboardView_arcScaleTextSize, scaleTextSize)
             scaleTextMargin =
-                it.getDimension(R.styleable.DashboardView_arcScaleMargin, defaultScaleTextMargin).dp
+                it.getDimension(R.styleable.DashboardView_arcScaleMargin, scaleTextMargin)
             arcScaleColor = it.getColor(R.styleable.DashboardView_arcScaleColor, arcScaleColor)
 
             descTextSize =
-                it.getDimension(R.styleable.DashboardView_arcDescTextSize, defaultDescTextSize).dp
+                it.getDimension(R.styleable.DashboardView_arcDescTextSize, descTextSize)
             arcDescColor = it.getColor(R.styleable.DashboardView_arcDescColor, arcDescColor)
             descTextMargin =
-                it.getDimension(R.styleable.DashboardView_arcDescMargin, defaultDescMargin).dp
+                it.getDimension(R.styleable.DashboardView_arcDescMargin, descTextMargin)
 
             bitmap = runCatching {
                 BitmapFactory.decodeResource(
                     resources,
                     it.getResourceIdOrThrow(R.styleable.DashboardView_arcIcon)
                 )
-            }.getOrNull()
+            }.getOrNull() ?: if (debug) {
+                BitmapFactory.decodeResource(resources, android.R.drawable.ic_delete)
+            } else {
+                null
+            }
 
             iconMargin =
-                it.getDimension(R.styleable.DashboardView_arcIconMargin, defaultIconMargin).dp
+                it.getDimension(R.styleable.DashboardView_arcIconMargin, iconMargin)
+            iconSize =
+                it.getDimension(R.styleable.DashboardView_arcIconSize, -1f).takeIf { s -> s > 0 }
 
             cutAngle = it.getFloat(R.styleable.DashboardView_arcCutAngle, cutAngle)
 
@@ -339,6 +349,11 @@ class DashboardView @JvmOverloads constructor(
             currentProgress = it.getFloat(R.styleable.DashboardView_arcProgress, currentProgress)
                 .coerceAtLeast(minProgress)
                 .coerceAtMost(maxProgress)
+            progressStep =
+                it.getFloat(R.styleable.DashboardView_arcStep, progressStep).takeIf { step ->
+                    step > 0 && step < maxProgress
+                } ?: progressStep
+            it.recycle()
         }
     }
 
@@ -445,6 +460,14 @@ class DashboardView @JvmOverloads constructor(
      */
     fun setIconMargin(dp: Int) {
         iconMargin = dp.dp
+        postInvalidate()
+    }
+
+    /**
+     * 底部图标大小
+     */
+    fun setIconSize(dp: Int) {
+        iconSize = dp.dp
         postInvalidate()
     }
 
