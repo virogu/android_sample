@@ -14,6 +14,7 @@ import com.example.testapp.R
 import java.lang.Math.PI
 import java.lang.StrictMath.sin
 import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlin.math.cos
 import kotlin.math.max
 
@@ -34,12 +35,12 @@ class DashboardView @JvmOverloads constructor(
     interface Callback {
 
         fun getProgressText(value: Float): String = BigDecimal(value.toString())
-            .setScale(1, BigDecimal.ROUND_HALF_UP)
+            .setScale(1, RoundingMode.HALF_UP)
             .stripTrailingZeros()
             .toPlainString()
 
         fun getScaleText(value: Float): String = BigDecimal(value.toString())
-            .setScale(1, BigDecimal.ROUND_HALF_UP)
+            .setScale(1, RoundingMode.HALF_UP)
             .stripTrailingZeros()
             .toPlainString()
 
@@ -112,7 +113,6 @@ class DashboardView @JvmOverloads constructor(
     }
     private val rectF = RectF()
     private val rect = Rect()
-    private var meters = arrayOf("0", "过慢", "40", "50", "60", "70", "80", "90", "100", "过快", "140")
 
     private var offsetH: Float = 0f
     private var centerX: Float = width / 2f
