@@ -8,8 +8,8 @@ buildscript {
         maven("https://maven.aliyun.com/repository/google")
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.2.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
+        classpath("com.android.tools.build:gradle:8.0.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
 
         classpath(kotlin("gradle-plugin", Versions.kotlinVersion))
         classpath(kotlin("serialization", Versions.kotlinVersion))

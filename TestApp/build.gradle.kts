@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    namespace = "com.example.testapp"
+
     compileSdk = Versions.compileSdk
 
     defaultConfig {

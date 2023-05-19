@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "com.example.emptyapp"
     compileSdk = Versions.compileSdk
 
     defaultConfig {
@@ -27,6 +28,7 @@ android {
 
     buildFeatures {
         //dataBinding = true
+        buildConfig = true
         viewBinding = true
     }
 
@@ -87,6 +89,7 @@ android {
     productFlavors {
         create("aFlavor") {
             dimension = "product"
+            manifestPlaceholders.put("UID", "UIDA")
 
             buildTypes {
                 release {
@@ -112,6 +115,7 @@ android {
         }
 
         create("bFlavor") {
+            manifestPlaceholders.put("UID", "UIDB")
             dimension = "product"
             signingConfig = signingConfigs.getByName("b")
         }
@@ -159,6 +163,11 @@ dependencies {
     implementation(Libs.Lifecycle.extensions)
 
     implementation("androidx.biometric:biometric-ktx:1.2.0-alpha03")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.4.+")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+
+    implementation("io.coil-kt:coil:2.3.0")
 
     navigationAll()
 

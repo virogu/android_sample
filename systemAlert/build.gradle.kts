@@ -1,8 +1,11 @@
 plugins {
-    commons.application
+    id("com.android.application")
+    id("kotlin-android")
 }
 
 android {
+    namespace = "com.virogu.systemalert"
+
     compileSdk = Versions.compileSdk
 
     defaultConfig {

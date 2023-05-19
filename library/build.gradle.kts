@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    namespace = "com.virogu.library"
+
     compileSdk = Versions.compileSdk
 
     defaultConfig {

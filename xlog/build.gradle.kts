@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    namespace = "com.virogu.xlog"
+
     compileSdk = Versions.compileSdk
 
     defaultConfig {
