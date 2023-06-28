@@ -27,6 +27,7 @@ android {
     buildFeatures {
         //dataBinding = true
         viewBinding = true
+        buildConfig = true
     }
 
     signingConfigs {
@@ -83,6 +84,7 @@ android {
 
 dependencies {
     implementation(project(":base"))
+    implementation(project(":library"))
 
     application()
     coroutines()

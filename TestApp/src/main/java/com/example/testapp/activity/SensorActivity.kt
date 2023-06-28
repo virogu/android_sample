@@ -15,12 +15,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.testapp.R
-import com.example.testapp.util.PermissionUtil.Companion.requestPermission
+import com.virogu.library.common.extention.toast
+import com.virogu.library.common.util.requestPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.buffer
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.DataOutputStream
@@ -28,8 +28,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 data class GSensorData(val x: Float, val y: Float, val z: Float) {
     override fun toString(): String {
@@ -69,24 +67,22 @@ class SensorActivity : AppCompatActivity() {
         btStart = findViewById(R.id.bt_start)
         btEnd = findViewById(R.id.bt_end)
         outputDirectory = getOutputDirectory()
-        val permissionList: ArrayList<String> = ArrayList()
-        permissionList.apply {
-            add(Manifest.permission.READ_EXTERNAL_STORAGE)
-            add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                add(Manifest.permission.HIGH_SAMPLING_RATE_SENSORS)
-            }
-        }
         requestPermission(
-            this,
-            permissionList
+            listOfNotNull(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    Manifest.permission.HIGH_SAMPLING_RATE_SENSORS
+                } else {
+                    null
+                }
+            ), "需要以下权限才能使用该功能"
         ).request { allGranted, _, _ ->
             if (allGranted) {
                 init()
             } else {
-                Toast.makeText(this, getString(R.string.denied_permission_tips), Toast.LENGTH_SHORT)
-                    .show()
-                finish()
+                toast("您拒绝了授予程序权限")
+                return@request
             }
         }
     }
