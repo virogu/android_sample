@@ -17,7 +17,7 @@ import com.virogu.library.R
 import java.util.*
 
 
-class SpinnerDatePickerDialog(context: Context) : AlertDialog(context) {
+class SpinnerDatePickerDialog private constructor(context: Context) : AlertDialog(context) {
 
     @SuppressLint("DiscouragedPrivateApi")
     class Builder(context: Context) {

@@ -31,7 +31,7 @@ data class TextWithColor(
     }
 }
 
-class CommonConfirmDialog(context: Context) : AlertDialog(context) {
+class CommonConfirmDialog private constructor(context: Context) : AlertDialog(context) {
 
     @SuppressLint("DiscouragedPrivateApi")
     class Builder(private val context: Context) {
@@ -51,6 +51,7 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
         private var btOkText: String = context.getString(android.R.string.ok)
         private var btCancelText: String = context.getString(android.R.string.cancel)
         private var textGravity = Gravity.CENTER
+        private var titleDrawable: Drawable? = null
         //private var warnTextPosition: List<Int> = emptyList()
 
         init {
@@ -87,9 +88,8 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
         }
 
         fun setTitleDrawable(drawable: Drawable?, padding: Int = 4): Builder {
-            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            this.titleDrawable = drawable
             this.title.compoundDrawablePadding = padding
-            this.title.setCompoundDrawables(drawable, null, null, null)
             return this
         }
 
@@ -163,6 +163,12 @@ class CommonConfirmDialog(context: Context) : AlertDialog(context) {
                     params.width =
                         context.resources.getDimensionPixelOffset(R.dimen.common_dialog_min_width)
                     attributes = params
+                }
+                titleDrawable?.also { drawable ->
+                    val fontMetrics = title.paint.fontMetrics
+                    val iconSize = (fontMetrics.descent - fontMetrics.ascent).toInt()
+                    drawable.setBounds(0, 0, iconSize, iconSize)
+                    title.setCompoundDrawables(drawable, null, null, null)
                 }
                 onShowListener?.invoke(it, dialog)
             }

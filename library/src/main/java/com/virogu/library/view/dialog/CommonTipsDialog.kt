@@ -22,7 +22,7 @@ import kotlinx.coroutines.*
 
 private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
-class CommonTipsDialog(context: Context) : AlertDialog(context) {
+class CommonTipsDialog private constructor(context: Context) : AlertDialog(context) {
 
     @SuppressLint("DiscouragedPrivateApi")
     class Builder(private val context: Context) {
@@ -39,6 +39,7 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
         private var textList: List<TextWithColor> = emptyList()
         private var btOkText: String = context.getString(android.R.string.ok)
         private var textGravity = Gravity.CENTER
+        private var titleDrawable: Drawable? = null
 
         private var delaySecond = 0L
 
@@ -70,9 +71,8 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
         }
 
         fun setTitleDrawable(drawable: Drawable?, padding: Int = 4): Builder {
-            drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            this.titleDrawable = drawable
             this.title.compoundDrawablePadding = padding
-            this.title.setCompoundDrawables(drawable, null, null, null)
             return this
         }
 
@@ -172,6 +172,12 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
                         context.resources.getDimensionPixelOffset(R.dimen.common_dialog_min_width)
                     attributes = params
                 }
+                titleDrawable?.also { drawable ->
+                    val fontMetrics = title.paint.fontMetrics
+                    val iconSize = (fontMetrics.descent - fontMetrics.ascent).toInt()
+                    drawable.setBounds(0, 0, iconSize, iconSize)
+                    title.setCompoundDrawables(drawable, null, null, null)
+                }
                 when {
                     delaySecond > 0 -> {
                         dialog.setCancelable(false)
@@ -187,6 +193,7 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
                             btOk.isEnabled = true
                         }
                     }
+
                     delaySecond < 0 -> {
                         btOk.isEnabled = true
                         job = coroutineScope.launch(Dispatchers.Main) {
@@ -200,6 +207,7 @@ class CommonTipsDialog(context: Context) : AlertDialog(context) {
                             btOk.performClick()
                         }
                     }
+
                     else -> {
                         btOk.isEnabled = true
                         cancelJob()
