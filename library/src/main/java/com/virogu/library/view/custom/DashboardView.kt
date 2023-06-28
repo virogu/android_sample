@@ -1,8 +1,14 @@
-package com.example.testapp.view
+package com.virogu.library.view.custom
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -10,7 +16,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.FloatRange
 import androidx.core.content.res.getResourceIdOrThrow
-import com.example.testapp.R
+import com.virogu.library.R
 import java.lang.Math.PI
 import java.lang.StrictMath.sin
 import java.math.BigDecimal
