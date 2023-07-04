@@ -33,7 +33,7 @@ interface RvTabLayoutMediator<VB : ViewBinding> {
 
     /**
      * 更新指定index,
-     * 执行后会通过 [AbsRvTabLayoutMediator.onBindView] 刷新指定位置的Tab界面
+     * 执行后会通过 [BaseRvTabLayoutMediator.onBindView] 刷新指定位置的Tab界面
      * @param position 要刷新的Tab的index
      * @param payload 可选的部分更新参数，为空时全量更新
      */

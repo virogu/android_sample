@@ -33,7 +33,7 @@ import androidx.viewpager2.widget.ViewPager2
  * tabLayoutMediator.detach()
  * ```
  **/
-abstract class AbsRvTabLayoutMediator<VB : ViewBinding> constructor(
+abstract class BaseRvTabLayoutMediator<VB : ViewBinding> constructor(
     private val recyclerView: RecyclerView,
     private val viewPager: ViewPager2,
     private val listenItemFullVisible: Boolean = false
@@ -170,7 +170,7 @@ abstract class AbsRvTabLayoutMediator<VB : ViewBinding> constructor(
     @Suppress("UNCHECKED_CAST")
     override fun updateViewAt(position: Int, doUpdate: VB.(Boolean) -> Unit) {
         val holder =
-            recyclerView.findViewHolderForAdapterPosition(position) as? AbsRvTabLayoutMediator<VB>.RvTabLayoutAdapter.Holder
+            recyclerView.findViewHolderForAdapterPosition(position) as? BaseRvTabLayoutMediator<VB>.RvTabLayoutAdapter.Holder
         holder?.binding?.doUpdate(position == viewPager.currentItem)
     }
 
@@ -303,10 +303,6 @@ abstract class AbsRvTabLayoutMediator<VB : ViewBinding> constructor(
         }
 
         override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-            onChanged()
-        }
-
-        override fun onStateRestorationPolicyChanged() {
             onChanged()
         }
 

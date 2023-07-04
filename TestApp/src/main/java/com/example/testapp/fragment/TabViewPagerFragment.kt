@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.AbsRvTabLayoutMediator
+import androidx.recyclerview.widget.BaseRvTabLayoutMediator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +34,7 @@ class TabViewPagerFragment : BaseBindingFragment<FragmentTabViewPagerBinding>() 
         rv2.layoutManager = GridLayoutManager(requireContext(), 4)
         rv3.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
-        val tab1 = object : AbsRvTabLayoutMediator<TabMenuItemBinding>(rv1, viewPager) {
+        val tab1 = object : BaseRvTabLayoutMediator<TabMenuItemBinding>(rv1, viewPager) {
             override fun onCreateView(parent: ViewGroup): TabMenuItemBinding {
                 return TabMenuItemBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -52,7 +52,7 @@ class TabViewPagerFragment : BaseBindingFragment<FragmentTabViewPagerBinding>() 
                 tvText.text = "menu${position + 1}"
             }
         }
-        val tab2 = object : AbsRvTabLayoutMediator<TabMenuItemBinding>(rv2, viewPager) {
+        val tab2 = object : BaseRvTabLayoutMediator<TabMenuItemBinding>(rv2, viewPager) {
             override fun onCreateView(parent: ViewGroup): TabMenuItemBinding {
                 return TabMenuItemBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -70,7 +70,7 @@ class TabViewPagerFragment : BaseBindingFragment<FragmentTabViewPagerBinding>() 
                 tvText.text = "menu${position + 1}"
             }
         }
-        val tab3 = object : AbsRvTabLayoutMediator<TabMenuItemBinding>(rv3, viewPager) {
+        val tab3 = object : BaseRvTabLayoutMediator<TabMenuItemBinding>(rv3, viewPager) {
             override fun onCreateView(parent: ViewGroup): TabMenuItemBinding {
                 return TabMenuItemBinding.inflate(
                     LayoutInflater.from(parent.context),
