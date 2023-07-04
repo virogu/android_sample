@@ -11,19 +11,13 @@ import androidx.viewpager2.widget.ViewPager2
  *
  * RecyclerView实现的Tab选项卡和ViewPager联动的工具
  *
- * @param VB ViewBinding 自定义的Tab布局
- *
- * @param recyclerView [RecyclerView] 要展示Tab选项卡的RecyclerView
- * @param viewPager [ViewPager2] 要关联的ViewPager
- * @param listenItemFullVisible 是否需要监听首尾的Item有没有完全显示出来. default: false
- *
  * ```
  * //ViewPager
- * viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
- * viewPager2.adapter = viewPagerAdapter
- * //RecyclerView
+ * viewPager2.adapter = object : FragmentStateAdapter{
+ * ...
+ * }
  * recyclerViewTab.layoutManager = LinearLayoutManager(requireContext())
- * val tabLayoutMediator = object: AbsRvTabLayoutMediator<XXTabItemBinding>(recyclerView,viewPager) {
+ * val tabLayoutMediator = object: BaseRvTabLayoutMediator<XXTabItemBinding>(recyclerView, viewPager) {
  *  ...
  * }
  * tabLayoutMediator.attach()
@@ -32,6 +26,50 @@ import androidx.viewpager2.widget.ViewPager2
  * //detach when destroyed
  * tabLayoutMediator.detach()
  * ```
+ */
+
+interface RvTabLayoutMediator<VB : ViewBinding> {
+
+    /**
+     * ViewPager和RecyclerView关联起来
+     */
+    fun attach()
+
+    /**
+     * ViewPager和RecyclerView解除关联
+     */
+    fun detach()
+
+    /**
+     * 选中指定Tab
+     * @param position 要选中的Tab的index
+     */
+    fun selectTab(position: Int)
+
+    /**
+     * 对指定index的Tab进行更新操作
+     * @param position 要选中的Tab的index
+     * @param doUpdate 找到指定index的Tab后需要执行的操作
+     */
+    fun updateViewAt(position: Int, doUpdate: VB.(Boolean) -> Unit)
+
+    /**
+     * 更新指定index,
+     * 执行后会通过 [BaseRvTabLayoutMediator.onBindView] 刷新指定位置的Tab界面
+     * @param position 要刷新的Tab的index
+     * @param payload 可选的部分更新参数，为空时全量更新
+     */
+    fun notifyItemChanged(position: Int, payload: Any? = null)
+}
+
+/**
+ *
+ * @param VB ViewBinding 自定义的Tab布局
+ *
+ * @param recyclerView [RecyclerView] 要展示Tab选项卡的RecyclerView
+ * @param viewPager [ViewPager2] 要关联的ViewPager
+ * @param listenItemFullVisible 是否需要监听首尾的Item有没有完全显示出来. default: false
+ *
  **/
 abstract class BaseRvTabLayoutMediator<VB : ViewBinding> constructor(
     private val recyclerView: RecyclerView,
@@ -109,7 +147,7 @@ abstract class BaseRvTabLayoutMediator<VB : ViewBinding> constructor(
     private val onScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            logD("onScrollStateChanged: $newState")
+            //logD("onScrollStateChanged: $newState")
             if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                 notifyVisibility()
             }
@@ -117,7 +155,7 @@ abstract class BaseRvTabLayoutMediator<VB : ViewBinding> constructor(
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            logD("onScrolled: dx: $dx, dy: $dy")
+            //logD("onScrolled: dx: $dx, dy: $dy")
             //列表刷新bindView结束后会触发 onScrolled(recyclerView, 0, 0), 获取一下可见性
             if (dx == 0 && dy == 0) {
                 notifyVisibility()
