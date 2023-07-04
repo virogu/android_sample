@@ -5,6 +5,7 @@ import com.example.testapp.chart.LinerChartFragment
 import com.example.testapp.datepicker.DatePickerFragment
 import com.example.testapp.fragment.ProgressBarFragment
 import com.example.testapp.fragment.SystemInfoFragment
+import com.example.testapp.fragment.TabViewPagerFragment
 import com.example.testapp.navigation.BottomNavigationActivity
 import com.example.testapp.navigation.NavigationActivity
 import com.example.testapp.navigation.NavigationRailActivity
@@ -16,6 +17,7 @@ enum class PagerBean(
 ) {
     ProgressBar("ProgressBar", { ProgressBarFragment() }, "ProgressBar"),
     SystemInfo("SystemInfo", { SystemInfoFragment() }, "SystemInfo"),
+    TabViewPager("TabViewPager", { TabViewPagerFragment() }, "Tab with ViewPager2"),
     GSensor("G-Sensor", { SensorActivity::class.java }, "G-Sensor"),
     NavigationRail(
         "NavigationRail",

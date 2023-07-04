@@ -53,6 +53,7 @@ dependencies {
     implementation(Libs.Material.material)
     implementation(Libs.Common.constraintLayout)
     implementation(Libs.Common.preference_ktx)
+    implementation(Libs.Recyclerview.recyclerview)
 
     implementation(Libs.Kotlin.kotlin_stdlib)
 
