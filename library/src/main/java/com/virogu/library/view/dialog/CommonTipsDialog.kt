@@ -7,16 +7,19 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
-import com.google.android.material.textview.MaterialTextView
 import com.virogu.library.R
 import kotlinx.coroutines.*
 
@@ -29,22 +32,22 @@ class CommonTipsDialog private constructor(context: Context) : AlertDialog(conte
 
         private val dialog: CommonTipsDialog = CommonTipsDialog(context)
         private val layout: View
-        private val title: MaterialTextView
+        private val title: TextView
         private val btOk: Button
         private val tvText: TextView
         private var cancelable: Boolean = true
         private var onShowListener: ((DialogInterface, CommonTipsDialog) -> Unit)? = null
         private var onDismissListener: ((DialogInterface, CommonTipsDialog) -> Unit)? = null
         private var onCloseListener: (() -> Unit)? = null
-        private var textList: List<TextWithColor> = emptyList()
+
+        //private var textList: List<TextWithColor> = emptyList()
         private var btOkText: String = context.getString(android.R.string.ok)
         private var textGravity = Gravity.CENTER
         private var titleDrawable: Drawable? = null
+        private var spannedString: SpannedString? = null
 
         private var delaySecond = 0L
-
         private var job: Job? = null
-        //private var warnTextPosition: List<Int> = emptyList()
 
         init {
             layout = LayoutInflater.from(context).inflate(
@@ -73,7 +76,13 @@ class CommonTipsDialog private constructor(context: Context) : AlertDialog(conte
         fun setTitleDrawable(drawable: Drawable?, padding: Int = 4): Builder {
             this.titleDrawable = drawable
             this.title.compoundDrawablePadding = padding
+            //drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            //this.title.setCompoundDrawables(drawable, null, null, null)
             return this
+        }
+
+        fun setTitleDrawable(@DrawableRes id: Int, padding: Int = 4): Builder {
+            return setTitleDrawable(ContextCompat.getDrawable(context, id), padding)
         }
 
         fun setCloseBtText(@StringRes resId: Int): Builder {
@@ -85,19 +94,25 @@ class CommonTipsDialog private constructor(context: Context) : AlertDialog(conte
             return this
         }
 
-        fun setText(text: String): Builder {
-            this.textList = listOf(TextWithColor(text))
-            //this.warnTextPosition = emptyList()
+        fun buildText(builderAction: SpannableStringBuilder.() -> Unit): Builder {
+            this.spannedString = buildSpannedString(builderAction)
             return this
+        }
+
+        fun setText(text: String): Builder {
+            return setText(listOf(TextWithColor(text)))
         }
 
         fun setText(@StringRes resId: Int): Builder {
             return setText(context.getString(resId))
         }
 
-        fun setText(textList: List<TextWithColor>): Builder {
-            this.textList = textList
-            return this
+        fun setText(textList: List<TextWithColor>): Builder = buildText {
+            textList.forEach {
+                color(it.textColor) {
+                    append(it.text)
+                }
+            }
         }
 
         fun setTextGravity(gravity: Int): Builder {
@@ -142,12 +157,8 @@ class CommonTipsDialog private constructor(context: Context) : AlertDialog(conte
         fun build(): CommonTipsDialog {
             dialog.setCancelable(cancelable)
             tvText.gravity = textGravity
-            tvText.text = buildSpannedString {
-                textList.forEach {
-                    color(it.textColor) {
-                        append(it.text)
-                    }
-                }
+            spannedString?.also {
+                tvText.text = it
             }
             btOk.text = btOkText
             btOk.setOnClickListener {

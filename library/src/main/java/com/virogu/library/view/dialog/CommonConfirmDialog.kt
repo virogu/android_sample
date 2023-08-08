@@ -7,6 +7,8 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +16,11 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
-import com.google.android.material.textview.MaterialTextView
 import com.virogu.library.R
 
 
@@ -38,7 +41,7 @@ class CommonConfirmDialog private constructor(context: Context) : AlertDialog(co
 
         private val dialog: CommonConfirmDialog = CommonConfirmDialog(context)
         private val layout: View
-        private val title: MaterialTextView
+        private val title: TextView
         private val btOk: Button
         private val btCancel: Button
         private val tvText: TextView
@@ -47,12 +50,14 @@ class CommonConfirmDialog private constructor(context: Context) : AlertDialog(co
         private var onDismissListener: ((DialogInterface, CommonConfirmDialog) -> Unit)? = null
         private var onCancelListener: (() -> Unit)? = null
         private var onPositiveListener: (() -> Unit)? = null
-        private var textList: List<TextWithColor> = emptyList()
+
         private var btOkText: String = context.getString(android.R.string.ok)
         private var btCancelText: String = context.getString(android.R.string.cancel)
         private var textGravity = Gravity.CENTER
         private var titleDrawable: Drawable? = null
-        //private var warnTextPosition: List<Int> = emptyList()
+        private var spannedString: SpannedString? = null
+
+        //private var textList: List<TextWithColor> = emptyList()
 
         init {
             layout = LayoutInflater.from(context).inflate(
@@ -79,6 +84,11 @@ class CommonConfirmDialog private constructor(context: Context) : AlertDialog(co
             return this
         }
 
+        fun buildText(builderAction: SpannableStringBuilder.() -> Unit): Builder {
+            this.spannedString = buildSpannedString(builderAction)
+            return this
+        }
+
         fun setPositionBtText(@StringRes resId: Int): Builder {
             return setPositionBtText(context.getString(resId))
         }
@@ -90,7 +100,13 @@ class CommonConfirmDialog private constructor(context: Context) : AlertDialog(co
         fun setTitleDrawable(drawable: Drawable?, padding: Int = 4): Builder {
             this.titleDrawable = drawable
             this.title.compoundDrawablePadding = padding
+            //drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+            //this.title.setCompoundDrawables(drawable, null, null, null)
             return this
+        }
+
+        fun setTitleDrawable(@DrawableRes id: Int, padding: Int = 4): Builder {
+            return setTitleDrawable(ContextCompat.getDrawable(context, id), padding)
         }
 
         fun setPositionBtText(string: String): Builder {
@@ -104,18 +120,19 @@ class CommonConfirmDialog private constructor(context: Context) : AlertDialog(co
         }
 
         fun setText(text: String): Builder {
-            this.textList = listOf(TextWithColor(text))
-            //this.warnTextPosition = emptyList()
-            return this
+            return setText(listOf(TextWithColor(text)))
         }
 
         fun setText(@StringRes resId: Int): Builder {
             return setText(context.getString(resId))
         }
 
-        fun setText(textList: List<TextWithColor>): Builder {
-            this.textList = textList
-            return this
+        fun setText(textList: List<TextWithColor>): Builder = buildText {
+            textList.forEach {
+                color(it.textColor) {
+                    append(it.text)
+                }
+            }
         }
 
         fun setTextGravity(gravity: Int): Builder {
@@ -176,12 +193,8 @@ class CommonConfirmDialog private constructor(context: Context) : AlertDialog(co
                 onDismissListener?.invoke(it, dialog)
             }
             tvText.gravity = textGravity
-            tvText.text = buildSpannedString {
-                textList.forEach {
-                    color(it.textColor) {
-                        append(it.text)
-                    }
-                }
+            spannedString?.also {
+                tvText.text = it
             }
             btOk.text = btOkText
             btCancel.text = btCancelText
